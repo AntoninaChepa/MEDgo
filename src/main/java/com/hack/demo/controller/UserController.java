@@ -1,6 +1,6 @@
 package com.hack.demo.controller;
 
-import com.hack.demo.data.Dao;
+import com.hack.demo.data.UsersDao;
 import com.hack.demo.security.User;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,12 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    Dao dao;
+    UsersDao usersDao;
 
     @GetMapping("/user")
     public ResponseEntity<User> getUser(@RequestParam(name = "email") String email){
 
-        Optional<User> user = dao.findByEmail(email);
+        Optional<User> user = usersDao.findByEmail(email);
         return ResponseEntity.of(user);
     }
 }
