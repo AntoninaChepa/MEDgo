@@ -1,0 +1,21 @@
+{
+    "command": "create-booking",
+    "payload": {
+        "user": {
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "phone": ""
+        },
+        "departure": {
+            "city": "",
+            "street": ""
+        },
+        "arrival": {
+            "city": "",
+            "street": ""
+        },
+        "arrival_time": "",
+        "seat_type": ""
+    }
+}
