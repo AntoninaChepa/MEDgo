@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { CreateBookingCommandInput } from "../../apis/commands/create-booking/create-booking.schema";
-import { createBooking } from "../../apis/commands/create-booking/edit-booking";
+import { createBooking } from "../../apis/commands/create-booking/create-booking";
 import { queryKeys } from "../queries/query-keys";
 
 export function useCreateBooking({ onSettled }: { onSettled: () => void }) {

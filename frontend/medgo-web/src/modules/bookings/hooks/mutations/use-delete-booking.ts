@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { DeleteBookingCommandInput } from "../../apis/commands/delete-booking/delete-booking.schema";
-import { deleteBooking } from "../../apis/commands/delete-booking/edit-booking";
+import { deleteBooking } from "../../apis/commands/delete-booking/delete-booking";
 import { queryKeys } from "../queries/query-keys";
 
 export function useDeleteBooking({ onSettled }: { onSettled: () => void }) {
