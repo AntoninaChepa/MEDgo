@@ -23,12 +23,12 @@ export const editBookingCommandInputSchema = z.object({
   arrival_time: z.string().optional(),
   seat_type: z.string().optional(),
 });
-
 export type EditBookingCommandInput = z.infer<
   typeof editBookingCommandInputSchema
 >;
 
-export const createBookingCommandSchema = z.object({
+export const editBookingCommandSchema = z.object({
   command: z.literal(bookingsCommandsListSchema.enum["edit-booking"]),
   payload: editBookingCommandInputSchema,
 });
+export type EditBookingCommand = z.infer<typeof editBookingCommandSchema>;

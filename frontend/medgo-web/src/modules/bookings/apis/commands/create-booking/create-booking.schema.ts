@@ -27,3 +27,4 @@ export const createBookingCommandSchema = z.object({
   command: z.literal(bookingsCommandsListSchema.enum["create-booking"]),
   payload: createBookingCommandInputSchema,
 });
+export type CreateBookingCommand = z.infer<typeof createBookingCommandSchema>;

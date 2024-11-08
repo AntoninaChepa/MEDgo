@@ -12,3 +12,4 @@ export const deleteBookingCommandSchema = z.object({
   command: z.literal(bookingsCommandsListSchema.enum["delete-booking"]),
   payload: deleteBookingCommandInputSchema,
 });
+export type DeleteBookingCommand = z.infer<typeof deleteBookingCommandSchema>;
