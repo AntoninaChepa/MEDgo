@@ -1,5 +1,6 @@
-package com.hack.demo;
+package com.hack.demo.data;
 
+import com.hack.demo.security.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;

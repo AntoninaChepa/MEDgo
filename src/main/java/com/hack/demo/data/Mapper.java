@@ -1,5 +1,6 @@
-package com.hack.demo;
+package com.hack.demo.data;
 
+import com.hack.demo.security.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanWrapper;

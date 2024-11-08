@@ -1,4 +1,4 @@
-package com.hack.demo;
+package com.hack.demo.security;
 
 import jakarta.persistence.*;
 import lombok.Getter;

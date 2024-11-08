@@ -1,5 +1,7 @@
-package com.hack.demo;
+package com.hack.demo.controller;
 
+import com.hack.demo.data.Dao;
+import com.hack.demo.security.User;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
