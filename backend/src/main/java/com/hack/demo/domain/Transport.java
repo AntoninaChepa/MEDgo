@@ -7,17 +7,17 @@ import java.time.LocalTime;
 
 @Data
 public class Transport {
-    private String transportnummer;
-    private LocalDate transportdatum;
-    private LocalTime tranhstart;
-    private LocalTime tranhende;
-    private String tranvonort;
-    private String tranvonstrasse;
-    private String tranbisort;
-    private String tranbisstrasse;
-    private String transportart;
-    private String bezugnr;
-    private int kmtotale;
-    private String fuhrparkklasse;
-    private String sektionort;
+    private String transportNumber;
+    private LocalDate transportDate;
+    private LocalTime transportStart;
+    private LocalTime transportEnd;
+    private String fromLocation;
+    private String fromStreet;
+    private String toLocation;
+    private String toStreet;
+    private String transportType;
+    private String referenceNumber;
+    private int totalKm;
+    private String fleetClass;
+    private String sectionLocation;
 }
