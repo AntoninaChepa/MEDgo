@@ -27,14 +27,16 @@ If you setup proper environment variables like datasource password.
 The only things you need to do is compiling your project, building the image and pushing
 it up to AWS ECR. The image will substitute the old one. 
     
-    docker build -t image
+    docker build -t myapp .
     docker tag myapp:latest 774305610150.dkr.ecr.eu-central-1.amazonaws.com/medgo:latest
-    docker tag myapp:latest 774305610150.dkr.ecr.eu-central-1.amazonaws.com/medgo:latest
+    docker push 774305610150.dkr.ecr.eu-central-1.amazonaws.com/medgo:latest
+
 
 On the aws instance, run
-```bash
+
     sudo docker pull 774305610150.dkr.ecr.eu-central-1.amazonaws.com/medgo:latest
+    sudo docker service rm medgo_myapp
     sudo docker stack deploy -c docker-compose.yml medgo
-```
+
    
 
