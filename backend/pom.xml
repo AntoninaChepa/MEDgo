@@ -9,10 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.hack</groupId>
-    <artifactId>demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
-    <description>demo</description>
+    <artifactId>myapp</artifactId>
+    <name>myapp</name>
+    <description>myapp</description>
     <url/>
     <licenses>
         <license/>
@@ -27,7 +26,9 @@
         <url/>
     </scm>
     <properties>
+        <jar.finalName>app</jar.finalName>
         <java.version>21</java.version>
+        <vaadin.version>24.3.5</vaadin.version>
     </properties>
     <dependencies>
 
@@ -86,6 +87,7 @@
             <version>1.9.0</version>
         </dependency>
 
+
     </dependencies>
 
     <build>
@@ -94,13 +96,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                    <mainClass>com.hack.demo.DemoApplication</mainClass>
+                    <layout>JAR</layout>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
