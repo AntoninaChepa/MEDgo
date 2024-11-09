@@ -8,7 +8,7 @@ import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 export const supabaseClient = createClient(
-  env.NEXT_PUBLIC_BACKEND_API_URL,
+  env.NEXT_PUBLIC_SUPABASE_URL,
   env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 

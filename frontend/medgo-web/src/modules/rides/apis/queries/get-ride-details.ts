@@ -1,5 +1,4 @@
 import { endpoints } from "@/lib/endpoints";
-import { fetcher } from "@/lib/fetcher";
 import { z } from "zod";
 import { rideDetailsSchema } from "../../schemas/ride-details.schema";
 import { getRideDetailsMock } from "./mocks/get-ride-details.mock";
@@ -24,11 +23,13 @@ export async function getRideDetails({
       return RideDetailsOutputSchema.parse(data);
     }
 
-    const data = await fetcher(url.href, {
-      method: "GET",
-      token,
-      onUnauthorized,
-    });
+    const data = getRideDetailsMock();
+
+    // const data = await fetcher(url.href, {
+    //   method: "GET",
+    //   token,
+    //   onUnauthorized,
+    // });
 
     return RideDetailsOutputSchema.parse(data);
   } catch (error: any) {

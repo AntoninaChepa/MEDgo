@@ -1,9 +1,6 @@
-import { endpoints } from "@/lib/endpoints";
-import { fetcher } from "@/lib/fetcher";
-import {
-  EditBookingCommand,
-  EditBookingCommandInput,
-} from "./edit-booking.schema";
+import { supabaseClient } from "@/pages/_app";
+import { v4 } from "uuid";
+import { EditBookingCommandInput } from "./edit-booking.schema";
 
 export async function editBooking({
   input,
@@ -14,13 +11,20 @@ export async function editBooking({
   token: string;
   onUnauthorized: () => void;
 }): Promise<void> {
-  return fetcher(endpoints.bookings.edit, {
-    method: "POST",
-    token,
-    onUnauthorized,
-    input: {
-      command: "edit-booking",
-      payload: input,
-    } satisfies EditBookingCommand,
+  const { data, error } = await supabaseClient.from("bookings").upsert({
+    id: input.booking_id ?? v4(),
+    data: JSON.stringify(input),
   });
+
+  return;
+
+  // return fetcher(endpoints.bookings.edit, {
+  //   method: "POST",
+  //   token,
+  //   onUnauthorized,
+  //   input: {
+  //     command: "edit-booking",
+  //     payload: input,
+  //   } satisfies EditBookingCommand,
+  // });
 }

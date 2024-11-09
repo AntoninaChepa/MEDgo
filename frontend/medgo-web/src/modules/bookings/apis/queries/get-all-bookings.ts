@@ -1,9 +1,6 @@
-import { endpoints } from "@/lib/endpoints";
-import { fetcher } from "@/lib/fetcher";
+import { supabaseClient } from "@/pages/_app";
 import { z } from "zod";
 import { bookingSchema, BookingType } from "../../schemas/schema";
-import { getScheduledBookingsMock } from "./mocks/get-scheduled-bookings.mock";
-import { getUrgentBookingsMock } from "./mocks/get-urgent-bookings.mock";
 
 export const BookingsOutputSchema = z.object({
   items: z.array(bookingSchema),
@@ -27,42 +24,57 @@ export async function getAllBookings({
   };
 }): Promise<BookingsOutput> {
   try {
-    const url = new URL(endpoints.bookings.get_all);
+    // const url = new URL(endpoints.bookings.get_all);
 
-    url.searchParams.set("date_min", filters.date_min);
-    url.searchParams.set("date_max", filters.date_max);
+    // url.searchParams.set("date_min", filters.date_min);
+    // url.searchParams.set("date_max", filters.date_max);
 
-    if (filters.booking_type) {
-      url.searchParams.set("booking_type", filters.booking_type);
-    }
+    // if (filters.booking_type) {
+    //   url.searchParams.set("booking_type", filters.booking_type);
+    // }
 
-    if (filters.notified) {
-      url.searchParams.set("notified", filters.notified.toString());
-    }
+    // if (filters.notified) {
+    //   url.searchParams.set("notified", filters.notified.toString());
+    // }
 
-    // const { data: sup } = await supabaseClient.from("booking").select("*");
     // console.log("#sup: ", { sup: "supabaseClient" });
-    // console.log("#sup: ", { sup });
+
     // const { data } = await supabaseClient.from("bookings").insert([]);
 
-    if (!!useMock) {
-      if (filters.booking_type === "urgent") {
-        const data = getUrgentBookingsMock();
-        return BookingsOutputSchema.parse(data);
-      }
+    // if (!!useMock) {
+    //   if (filters.booking_type === "urgent") {
+    //     const data = getUrgentBookingsMock();
+    //     return BookingsOutputSchema.parse(data);
+    //   }
 
-      if (filters.booking_type === "scheduled") {
-        const isToNotify = filters.notified;
-        const data = getScheduledBookingsMock(isToNotify);
-        return BookingsOutputSchema.parse(data);
-      }
-    }
+    //   if (filters.booking_type === "scheduled") {
+    //     const isToNotify = filters.notified;
+    //     const data = getScheduledBookingsMock(!isToNotify);
+    //     return BookingsOutputSchema.parse(data);
+    //   }
+    // }
 
-    const data = await fetcher(url.href, {
-      method: "GET",
-      token,
-      onUnauthorized,
-    });
+    // const data = await fetcher(url.href, {
+    //   method: "GET",
+    //   token,
+    //   onUnauthorized,
+    // });
+
+    console.log("#supabaseClient: ", { supabaseClient: "supabaseClient" });
+
+    const { data: supabaseData, error: supabaseError } = await supabaseClient
+      .from(`bookings`)
+      .select();
+
+    // await supabase.from("Bookings").select("id");
+
+    console.log("#supabaseData: ", { supabaseData });
+
+    const data = !!supabaseData
+      ? supabaseData
+      : {
+          items: [],
+        };
 
     return BookingsOutputSchema.parse(data);
   } catch (error: any) {

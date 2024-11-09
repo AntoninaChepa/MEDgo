@@ -13,7 +13,7 @@ const BookingsTableWrapper = (props: {
   };
 }) => {
   const { data, isLoading, isError } = useBookings({
-    useMock: true,
+    // useMock: false,
     filters: props.filters,
   });
 

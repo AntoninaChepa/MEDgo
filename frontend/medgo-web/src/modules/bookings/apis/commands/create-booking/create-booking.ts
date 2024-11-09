@@ -1,9 +1,5 @@
-import { endpoints } from "@/lib/endpoints";
-import { fetcher } from "@/lib/fetcher";
-import {
-  CreateBookingCommand,
-  CreateBookingCommandInput,
-} from "./create-booking.schema";
+import { supabaseClient } from "@/pages/_app";
+import { CreateBookingCommandInput } from "./create-booking.schema";
 
 export async function createBooking({
   input,
@@ -14,13 +10,25 @@ export async function createBooking({
   token: string;
   onUnauthorized: () => void;
 }): Promise<void> {
-  return fetcher(endpoints.bookings.create, {
-    method: "POST",
-    token,
-    onUnauthorized,
-    input: {
-      command: "create-booking",
-      payload: input,
-    } satisfies CreateBookingCommand,
-  });
+  const { data, error } = await supabaseClient
+    .from("bookings")
+    .upsert({
+      id: Math.floor(Math.random() * 10001),
+      data: JSON.stringify(input),
+    })
+    .select();
+
+  console.log("## ", { data, error });
+
+  return;
+
+  // return fetcher(endpoints.bookings.create, {
+  //   method: "POST",
+  //   token,
+  //   onUnauthorized,
+  //   input: {
+  //     command: "create-booking",
+  //     payload: input,
+  //   } satisfies CreateBookingCommand,
+  // });
 }

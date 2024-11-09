@@ -1,9 +1,5 @@
-import { endpoints } from "@/lib/endpoints";
-import { fetcher } from "@/lib/fetcher";
-import {
-  DeleteBookingCommand,
-  DeleteBookingCommandInput,
-} from "./delete-booking.schema";
+import { supabaseClient } from "@/pages/_app";
+import { DeleteBookingCommandInput } from "./delete-booking.schema";
 
 export async function deleteBooking({
   input,
@@ -14,13 +10,20 @@ export async function deleteBooking({
   token: string;
   onUnauthorized: () => void;
 }): Promise<void> {
-  return fetcher(endpoints.bookings.delete, {
-    method: "POST",
-    token,
-    onUnauthorized,
-    input: {
-      command: "delete-booking",
-      payload: input,
-    } satisfies DeleteBookingCommand,
-  });
+  const { data, error } = await supabaseClient
+    .from("bookings")
+    .delete()
+    .eq("id", input.booking_id);
+
+  return;
+
+  // return fetcher(endpoints.bookings.delete, {
+  //   method: "POST",
+  //   token,
+  //   onUnauthorized,
+  //   input: {
+  //     command: "delete-booking",
+  //     payload: input,
+  //   } satisfies DeleteBookingCommand,
+  // });
 }
