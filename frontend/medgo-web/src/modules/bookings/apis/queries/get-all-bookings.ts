@@ -44,6 +44,9 @@ export async function getAllBookings({
       return BookingsOutputSchema.parse(data);
     }
 
+    // const { data } = await supabaseClient.from("bookings").select();
+    // const { data } = await supabaseClient.from("bookings").insert([]);
+
     const data = await fetcher(url.href, {
       method: "GET",
       token,

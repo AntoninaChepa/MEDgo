@@ -9,8 +9,10 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useEditBooking } from "@/modules/bookings/hooks/mutations/use-edit-booking";
 import { Booking } from "@/modules/bookings/schemas/schema";
 import { ColumnDef } from "@tanstack/react-table";
+import { cx } from "class-variance-authority";
 import { formatDate } from "date-fns";
 import { useAtom } from "jotai";
 import { CheckCircle2Icon, MoreHorizontal, Trash2, X } from "lucide-react";
@@ -28,6 +30,29 @@ export const columns: ColumnDef<Booking>[] = [
     header: "ID",
     cell: ({ row }) => {
       return `${row.original.booking_id}`;
+    },
+    filterFn: (row, id, filterValue) => {
+      const data = row.original;
+
+      const STR =
+        data.user.email +
+        data.user.name +
+        data.user.phone +
+        data.booking_type +
+        data.departure.city +
+        data.departure.street +
+        data.arrival.city +
+        data.arrival.street +
+        data.pickup_time +
+        data.arrival_time +
+        data.seat_type;
+
+      /* console.log({
+        filterValue,
+        STR,
+      }); */
+
+      return STR.toLowerCase().includes(filterValue.toLowerCase());
     },
   },
   {
@@ -115,10 +140,16 @@ export const columns: ColumnDef<Booking>[] = [
     cell: ({ row }) => {
       const data = row.original;
 
+      const isAlreadyNotified = data.notified === true;
+
       const [idToDelete, setIdToDelete] = useAtom(SelectedBookingIdToDelete);
       const [isModalOpen, setIsModalOpen] = useAtom(
         DeleteBookingConfirmationDialogOpen
       );
+
+      const editMutation = useEditBooking({
+        onSettled: () => {},
+      });
 
       return (
         <DropdownMenu>
@@ -130,8 +161,27 @@ export const columns: ColumnDef<Booking>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            className="text-red-500 hover:text-red-600"
+            // className="text-red-500 hover:text-red-600"
           >
+            {!isAlreadyNotified && (
+              <DropdownMenuItem
+                onClick={() => {
+                  editMutation.mutate({
+                    booking_id: data.booking_id,
+                    notified: true,
+                  });
+                }}
+                className="text-green-500 hover:text-green-600 focus:text-green-600"
+              >
+                <CheckCircle2Icon
+                  className={cx(
+                    "h-4 w-4"
+                    // "text-green-500 hover:text-green-600 focus:text-green-600"
+                  )}
+                />
+                <span>Mark as notified</span>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem
               onClick={() => {
                 setIdToDelete(data.booking_id);

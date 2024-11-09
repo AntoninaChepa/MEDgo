@@ -131,7 +131,19 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
           />
 
           {/* arrival_time */}
-          <div>arrival_time: 10:00</div>
+          <FormField
+            control={form.control}
+            name="arrival_time"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input type="time" placeholder="10:00" {...field} />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         {/* user info */}
