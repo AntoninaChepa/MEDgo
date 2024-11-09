@@ -14,12 +14,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-<<<<<<< HEAD
-=======
 import { fromPlaces, toPlaces } from "./types";
 
 import AppComboBox from "@/components/app-combo-box";
->>>>>>> 0c67571e165ad6cf26760a14bd153ac053ba40b7
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { createBookingCommandInputSchema } from "@/modules/bookings/apis/commands/create-booking/create-booking.schema";
@@ -170,7 +167,6 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
 
         <span className="block font-bold text-lg">Arrivo</span>
         <AppComboBox
-          control={form.control}
           dataArr={[
             ...new Set(
               toPlaces.map((place) => {

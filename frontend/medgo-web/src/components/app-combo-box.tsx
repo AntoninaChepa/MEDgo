@@ -29,9 +29,7 @@ export default function AppComboBox({
   dataArr,
   name,
   label,
-  control,
 }: {
-  control: unknown;
   dataArr: ComboBoxItem[];
   name: string;
   label: string;
