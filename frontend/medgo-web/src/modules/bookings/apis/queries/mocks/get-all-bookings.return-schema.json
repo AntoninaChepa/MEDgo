@@ -1,0 +1,42 @@
+{
+    "items": [
+        {
+            "user": {
+                "first_name": "",
+                "last_name": "",
+                "email": "",
+                "phone": ""
+            },
+            "departure": {
+                "city": "",
+                "street": ""
+            },
+            "arrival": {
+                "city": "",
+                "street": ""
+            },
+            "seat_type": "",
+            "arrival_time": "",
+            "pickup_time": ""
+        },
+        {
+            "user": {
+                "first_name": "",
+                "last_name": "",
+                "email": "",
+                "phone": ""
+            },
+            "departure": {
+                "city": "",
+                "street": ""
+            },
+            "arrival": {
+                "city": "",
+                "street": ""
+            },
+            "seat_type": "",
+            "arrival_time": "",
+            "pickup_time": ""
+        }
+    ]
+}

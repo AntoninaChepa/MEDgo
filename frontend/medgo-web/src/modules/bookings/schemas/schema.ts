@@ -11,8 +11,8 @@ export const bookingSchema = z.object({
     city: z.string(),
     street: z.string(),
   }),
-  city: z.string(),
   arrival: z.object({
+    city: z.string(),
     street: z.string(),
   }),
   seat_type: z.string(),

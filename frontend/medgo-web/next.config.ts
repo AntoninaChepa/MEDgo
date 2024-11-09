@@ -1,3 +1,4 @@
+import "@/lib/env.mjs";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
