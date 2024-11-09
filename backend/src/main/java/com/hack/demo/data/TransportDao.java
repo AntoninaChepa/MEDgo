@@ -1,14 +1,11 @@
 package com.hack.demo.data;
 
 import com.hack.demo.domain.Transport;
-import com.hack.demo.domain.VehicleStats;
-import com.hack.demo.security.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Repository
@@ -21,8 +18,15 @@ public class TransportDao {
         jdbcClient.sql(TransportMapper.DELETE_ALL)
                 .update();
     }
-    public void batchInsert(List<Transport> transports) {
-        transports.forEach(
+    public void batchInsert(List<Transport> transports, int batchSize) {
+        for (int i = 0; i < transports.size(); i += batchSize) {
+            List<Transport> batch = transports.subList(i, Math.min(i + batchSize, transports.size()));
+            batchInsertChunk(batch);
+        }
+    }
+
+    private void batchInsertChunk(List<Transport> batch) {
+        batch.forEach(
                 transport -> jdbcClient.sql(TransportMapper.INSERT)
                         .param(transport.getTransportNumber())
                         .param(java.sql.Date.valueOf(transport.getTransportDate()))

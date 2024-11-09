@@ -30,14 +30,10 @@ public class StartupConfig {
     CommandLineRunner loadDataOnStartup() {
         return args -> {
             vehicleStatsDao.deleteAll();
-            List<VehicleStats> vehicleStatsList = csvParserService.loadVehicleStatsFromCsv();
-            vehicleStatsList.forEach(System.out::println); // Print each record for demonstration
-            vehicleStatsDao.batchInsertVehicleStats(vehicleStatsList);
+            vehicleStatsDao.batchInsertVehicleStats(csvParserService.loadVehicleStatsFromCsv());
 
             transportDao.deleteAll();
-            List<Transport> transportList = csvParserService.loadTransportData();
-            transportList.forEach(System.out::println); // Print each record for demonstration
-            transportDao.batchInsert(transportList);
+            csvParserService.loadTransportData();
         };
     }
 }
