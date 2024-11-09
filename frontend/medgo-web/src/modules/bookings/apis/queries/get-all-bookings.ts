@@ -1,8 +1,8 @@
+import { bookingSchema } from "../../schemas/schema";
 import { endpoints } from "@/lib/endpoints";
 import { fetcher } from "@/lib/fetcher";
-import { z } from "zod";
-import { bookingSchema } from "../../schemas/schema";
 import { getAllBookingsMock } from "./mocks/get-all-bookings.mock";
+import { z } from "zod";
 
 export const BookingsOutputSchema = z.object({
   items: z.array(bookingSchema),
@@ -21,8 +21,9 @@ export async function getAllBookings({
   try {
     const url = new URL(endpoints.bookings.get_all);
 
-    if (useMock) {
+    if (!!useMock) {
       const data = getAllBookingsMock();
+
       return BookingsOutputSchema.parse(data);
     }
 

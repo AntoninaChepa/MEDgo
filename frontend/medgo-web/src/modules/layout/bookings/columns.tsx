@@ -10,46 +10,68 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { ArrowUpDown } from "lucide-react";
+import { Booking } from "@/modules/bookings/schemas/schema";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
-};
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Booking>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "arrival",
+    header: "Arrival",
   },
   {
-    accessorKey: "email",
+    accessorKey: "arrival_time",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Arrival time
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-
-      return <div className="text-right font-medium">{amount}</div>;
+    accessorKey: "departure",
+    header: "Departure",
+  },
+  {
+    accessorKey: "pickup_time",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Pickup time
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
     },
+  },
+  {
+    accessorKey: "seat_type",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Seat type
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "user",
+    header: "User",
   },
   {
     id: "actions",
@@ -67,9 +89,9 @@ export const columns: ColumnDef<Payment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(payment.seat_type)}
             >
-              Copy payment ID
+              Copy seat type... for some reason
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View customer</DropdownMenuItem>

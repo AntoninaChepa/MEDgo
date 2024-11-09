@@ -6,7 +6,7 @@ import TablePage from "@/modules/layout/bookings/page";
 const BookingsPage = () => {
   return (
     <Layout>
-      await <TablePage></TablePage>
+      <TablePage></TablePage>
     </Layout>
   );
 };

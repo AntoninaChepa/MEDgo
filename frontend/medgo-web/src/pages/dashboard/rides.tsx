@@ -4,7 +4,7 @@ import React from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 const RidesPage = () => {
-	return <Layout></Layout>;
+  return <Layout>hi there</Layout>;
 };
 
 export default RidesPage;
