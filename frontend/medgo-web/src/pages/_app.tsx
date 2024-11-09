@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Toaster />
+      <Toaster position="top-right" closeButton />
       <QueryClientProvider client={queryClient}>
         <main className={`${inter.className} subpixel-antialiased`}>
           <Component {...pageProps} />

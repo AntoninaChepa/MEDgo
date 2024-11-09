@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { DeleteBookingCommandInput } from "../../apis/commands/delete-booking/delete-booking.schema";
 import { deleteBooking } from "../../apis/commands/delete-booking/delete-booking";
+import { DeleteBookingCommandInput } from "../../apis/commands/delete-booking/delete-booking.schema";
 import { queryKeys } from "../queries/query-keys";
 
 export function useDeleteBooking({ onSettled }: { onSettled: () => void }) {
@@ -15,9 +15,9 @@ export function useDeleteBooking({ onSettled }: { onSettled: () => void }) {
         onUnauthorized: () => {},
       }),
     onMutate: () => {
-      toast("Booking deletion", {
-        description: "Booking deletion in progress",
-      });
+      // toast("Booking deletion", {
+      //   description: "Booking deletion in progress",
+      // });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

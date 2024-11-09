@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const bookingSchema = z.object({
+  booking_id: z.string(),
   user: z.object({
     first_name: z.string(),
     last_name: z.string(),

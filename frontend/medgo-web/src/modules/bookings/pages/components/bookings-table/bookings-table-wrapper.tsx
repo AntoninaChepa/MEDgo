@@ -7,9 +7,9 @@ export default function BookingsTableWrapper(props: {
 }) {
   const { data, isLoading, isError } = useBookings({ useMock: true });
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <div>loading data...</div>;
 
-  if (isError || !data) return <div>error</div>;
+  if (isError || !data) return <div>error loading data</div>;
 
   return (
     <div className="container mx-auto py-10">

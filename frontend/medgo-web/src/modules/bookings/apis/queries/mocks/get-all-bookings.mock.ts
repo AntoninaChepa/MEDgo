@@ -3,6 +3,7 @@ import { BookingsOutput } from "../get-all-bookings";
 
 const mockedBookings = [
   {
+    booking_id: "1",
     user: {
       first_name: "John",
       last_name: "Doe",
@@ -22,6 +23,7 @@ const mockedBookings = [
     pickup_time: "2024-11-09T00:23:23.901Z",
   },
   {
+    booking_id: "2",
     user: {
       first_name: "John",
       last_name: "Doe",
@@ -41,6 +43,7 @@ const mockedBookings = [
     pickup_time: "2024-11-09T00:23:23.901Z",
   },
   {
+    booking_id: "3",
     user: {
       first_name: "John",
       last_name: "Doe",

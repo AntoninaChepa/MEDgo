@@ -15,9 +15,9 @@ export function useCreateBooking({ onSettled }: { onSettled: () => void }) {
         onUnauthorized: () => {},
       }),
     onMutate: () => {
-      toast("Booking creation", {
-        description: "Booking creation in progress",
-      });
+      // toast("Booking creation", {
+      //   description: "Booking creation in progress",
+      // });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

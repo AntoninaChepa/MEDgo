@@ -4,15 +4,18 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 import { Button } from "@/components/ui/button";
 import { Booking } from "@/modules/bookings/schemas/schema";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { useAtom } from "jotai";
+import { ArrowUpDown, MoreHorizontal, Trash2 } from "lucide-react";
+import {
+  DeleteBookingConfirmationDialogOpen,
+  SelectedBookingIdToDelete,
+} from "../delete-booking-confirmation-dialog/delete-booking-confirmation-dialog";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -84,7 +87,12 @@ export const columns: ColumnDef<Booking>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const payment = row.original;
+      const data = row.original;
+
+      const [idToDelete, setIdToDelete] = useAtom(SelectedBookingIdToDelete);
+      const [isModalOpen, setIsModalOpen] = useAtom(
+        DeleteBookingConfirmationDialogOpen
+      );
 
       return (
         <DropdownMenu>
@@ -94,16 +102,20 @@ export const columns: ColumnDef<Booking>[] = [
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuContent
+            align="end"
+            className="text-red-500 hover:text-red-600"
+          >
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.seat_type)}
+              onClick={() => {
+                setIdToDelete(data.booking_id);
+                setIsModalOpen(true);
+              }}
+              className="text-red-500 hover:text-red-600 focus:text-red-600"
             >
-              Copy seat type... for some reason
+              <Trash2 className="h-4 w-4" />
+              <span>Delete</span>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -15,9 +15,9 @@ export function useEditBooking({ onSettled }: { onSettled: () => void }) {
         onUnauthorized: () => {},
       }),
     onMutate: () => {
-      toast("Booking change", {
-        description: "Booking change in progress",
-      });
+      // toast("Booking change", {
+      //   description: "Booking change in progress",
+      // });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
