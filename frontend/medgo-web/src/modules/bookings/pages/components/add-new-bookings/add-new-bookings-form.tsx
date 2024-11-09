@@ -16,13 +16,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { fromPlaces, toPlaces } from "./types";
 
+import AppComboBox from "@/components/app-combo-box";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { createBookingCommandInputSchema } from "@/modules/bookings/apis/commands/create-booking/create-booking.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type AddNewBookingFormProps = {};
 
@@ -68,32 +70,32 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
         <div className="flex gap-4 items-center w-full">
           <FormField
             control={form.control}
-            name="name"
+            name="user.first_name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>name</FormLabel>
                 <FormControl>
                   <Input placeholder="Write your name" {...field} />
                 </FormControl>
-                <FormDescription>
+                {/* <FormDescription>
                   This is your public display name.
-                </FormDescription>
+                </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="Surname"
+            name="user.last_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Surname</FormLabel>
+                <FormLabel>Last name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Write your Surname" {...field} />
+                  <Input placeholder="Write your last name" {...field} />
                 </FormControl>
-                <FormDescription>
+                {/* <FormDescription>
                   This is your public display Surname.
-                </FormDescription>
+                </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
@@ -101,12 +103,12 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
         </div>
         <FormField
           control={form.control}
-          name="email"
+          name="user.email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>email</FormLabel>
               <FormControl>
-                <Input placeholder="example@email.com" {...field} />
+                <Input placeholder="email@example.com" {...field} />
               </FormControl>
               {/* <FormDescription>
                 This is your public display email.
@@ -117,7 +119,7 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
         />
         <FormField
           control={form.control}
-          name="phone"
+          name="user.phone"
           render={({ field }) => (
             <FormItem>
               <FormLabel>phone</FormLabel>
@@ -135,22 +137,19 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
         <span className="block font-bold text-xl">Dati viaggio</span>
         <span className="block font-bold text-lg">Partenza</span>
 
-        <FormField
-          control={form.control}
+        {/* departure.city */}
+        <AppComboBox
+          dataArr={[
+            ...new Set(
+              fromPlaces.map((place) => {
+                return { label: place, value: place };
+              })
+            ),
+          ]}
           name="departure.city"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Città</FormLabel>
-              <FormControl>
-                <Input placeholder="Cerca la città di partenza" {...field} />
-              </FormControl>
-              {/* <FormDescription>
-                This is your public display phone.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Departure city"
         />
+
         <FormField
           control={form.control}
           name="departure.street"
@@ -169,21 +168,17 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
         />
 
         <span className="block font-bold text-lg">Arrivo</span>
-        <FormField
+        <AppComboBox
           control={form.control}
+          dataArr={[
+            ...new Set(
+              toPlaces.map((place) => {
+                return { label: place, value: place };
+              })
+            ),
+          ]}
           name="arrival.city"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Città</FormLabel>
-              <FormControl>
-                <Input placeholder="Cerca la città di partenza" {...field} />
-              </FormControl>
-              {/* <FormDescription>
-                This is your public display phone.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Arrival city"
         />
         <FormField
           control={form.control}
