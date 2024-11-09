@@ -9,6 +9,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,12 +33,26 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone: "",
+      user: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+      },
+      departure: {
+        city: "",
+        street: "",
+      },
+      arrival: {
+        city: "",
+        street: "",
+      },
+      arrival_time: "",
+      seat_type: "",
     },
   });
+
+  const seatArr = ["seated", "en pe", "lie down", "no patient"];
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -43,7 +64,7 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <span className="block font-bold text-lg">'Dati anagrafici'</span>
+        <span className="block font-bold text-xl">Dati anagrafici</span>
         <div className="flex gap-4 items-center w-full">
           <FormField
             control={form.control}
@@ -111,12 +132,12 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
           )}
         />
 
-        <span className="block font-bold text-lg">'Dati viaggio'</span>
-        <span className="block text-md">Partenza</span>
+        <span className="block font-bold text-xl">Dati viaggio</span>
+        <span className="block font-bold text-lg">Partenza</span>
 
         <FormField
           control={form.control}
-          name="citta"
+          name="departure.city"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Città</FormLabel>
@@ -132,7 +153,7 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
         />
         <FormField
           control={form.control}
-          name="indirizzo"
+          name="departure.street"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Indirizzo via</FormLabel>
@@ -147,10 +168,10 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
           )}
         />
 
-        <span className="block text-md">Partenza</span>
+        <span className="block font-bold text-lg">Arrivo</span>
         <FormField
           control={form.control}
-          name="citta"
+          name="arrival.city"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Città</FormLabel>
@@ -166,7 +187,7 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
         />
         <FormField
           control={form.control}
-          name="indirizzo"
+          name="arrival.street"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Indirizzo via</FormLabel>
@@ -180,6 +201,18 @@ export const AddNewBookingForm = (props: AddNewBookingFormProps) => {
             </FormItem>
           )}
         />
+
+        <span className="block font-bold text-lg">Seat type</span>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select seat type" />
+          </SelectTrigger>
+          <SelectContent>
+            {seatArr.map((item) => (
+              <SelectItem value={item}>{item}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
         <Button type="submit">Submit</Button>
       </form>
