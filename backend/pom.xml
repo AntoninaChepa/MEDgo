@@ -28,7 +28,6 @@
     <properties>
         <jar.finalName>app</jar.finalName>
         <java.version>21</java.version>
-        <vaadin.version>24.3.5</vaadin.version>
     </properties>
     <dependencies>
 

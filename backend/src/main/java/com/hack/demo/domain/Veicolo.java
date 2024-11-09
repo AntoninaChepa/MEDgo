@@ -10,7 +10,7 @@ public class Veicolo {
     private int staff;
     private String tipoVeicolo;
 
-    boolean hasCapacity(String seatType, int count) {
+    public boolean hasCapacity(String seatType, int count) {
         switch (seatType) {
             case "brande":
                 return brande >= count;
@@ -28,7 +28,7 @@ public class Veicolo {
 
 
 // Aggiungi passeggeri a un veicolo
-void addPassengers(String seatType, int count) {
+public void addPassengers(String seatType, int count) {
     switch (seatType) {
         case "brande":
             brande -= count;
