@@ -2,6 +2,7 @@ import { z } from "zod";
 import { bookingsCommandsListSchema } from "../commands.names";
 
 export const createBookingCommandInputSchema = z.object({
+  booking_type: z.union([z.literal("scheduled"), z.literal("urgent")]),
   user: z.object({
     first_name: z.string(),
     last_name: z.string(),

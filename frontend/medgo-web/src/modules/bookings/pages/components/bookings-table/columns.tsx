@@ -7,11 +7,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Booking } from "@/modules/bookings/schemas/schema";
 import { ColumnDef } from "@tanstack/react-table";
+import { formatDate } from "date-fns";
 import { useAtom } from "jotai";
-import { ArrowUpDown, MoreHorizontal, Trash2 } from "lucide-react";
+import { CheckCircle2Icon, MoreHorizontal, Trash2, X } from "lucide-react";
 import {
   DeleteBookingConfirmationDialogOpen,
   SelectedBookingIdToDelete,
@@ -22,24 +24,25 @@ import {
 
 export const columns: ColumnDef<Booking>[] = [
   {
-    accessorKey: "arrival",
-    header: "Arrival",
+    accessorKey: "booking_id",
+    header: "ID",
     cell: ({ row }) => {
-      return `${row.original.arrival.city}, ${row.original.arrival.street}`;
+      return `${row.original.booking_id}`;
     },
   },
   {
-    accessorKey: "arrival_time",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Arrival time
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    accessorKey: "booking_type",
+    header: "Type",
+    cell: ({ row }) => {
+      switch (row.original.booking_type) {
+        case "urgent":
+          return <Badge variant="default">{"Urgent"}</Badge>;
+          break;
+
+        default:
+          return <Badge variant="outline">{"Scheduled"}</Badge>;
+          break;
+      }
     },
   },
   {
@@ -50,38 +53,61 @@ export const columns: ColumnDef<Booking>[] = [
     },
   },
   {
+    accessorKey: "notified",
+    header: "Notified",
+    cell: ({ row }) => {
+      if (!row.original.notified) return <X className="h-4 w-4" />;
+
+      return <CheckCircle2Icon className="h-4 w-4" />;
+    },
+  },
+  {
+    accessorKey: "arrival",
+    header: "Arrival",
+    cell: ({ row }) => {
+      return `${row.original.arrival.city}, ${row.original.arrival.street}`;
+    },
+  },
+  {
     accessorKey: "pickup_time",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Pickup time
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    header: "Pickup time",
+    cell: ({ row }) => {
+      return `${formatDate(new Date(row.original.pickup_time), "dd/MM/yyyy")}`;
+    },
+  },
+  {
+    accessorKey: "arrival_time",
+    header: "Arrival time",
+    cell: ({ row }) => {
+      return `${formatDate(new Date(row.original.arrival_time), "dd/MM/yyyy")}`;
     },
   },
   {
     accessorKey: "seat_type",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Seat type
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    header: "Seat type",
+    cell: ({ row }) => {
+      return `${row.original.seat_type}`;
     },
   },
   {
     accessorKey: "user",
-    header: "User",
+    header: "Customer name",
     cell: ({ row }) => {
-      return `${row.original.user.first_name} ${row.original.user.last_name}`;
+      return `${row.original.user.name}`;
+    },
+  },
+  {
+    accessorKey: "phone",
+    header: "Phone",
+    cell: ({ row }) => {
+      return `${row.original.user.phone}`;
+    },
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+    cell: ({ row }) => {
+      return `${row.original.user.email}`;
     },
   },
   {

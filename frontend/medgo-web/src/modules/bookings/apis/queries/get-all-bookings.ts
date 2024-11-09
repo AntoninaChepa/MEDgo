@@ -1,7 +1,7 @@
 import { endpoints } from "@/lib/endpoints";
 import { fetcher } from "@/lib/fetcher";
 import { z } from "zod";
-import { bookingSchema } from "../../schemas/schema";
+import { bookingSchema, BookingType } from "../../schemas/schema";
 import { getAllBookingsMock } from "./mocks/get-all-bookings.mock";
 
 export const BookingsOutputSchema = z.object({
@@ -21,6 +21,8 @@ export async function getAllBookings({
   filters: {
     date_min: string;
     date_max: string;
+    booking_type?: BookingType;
+    notified?: boolean;
   };
 }): Promise<BookingsOutput> {
   try {
@@ -28,6 +30,14 @@ export async function getAllBookings({
 
     url.searchParams.set("date_min", filters.date_min);
     url.searchParams.set("date_max", filters.date_max);
+
+    if (filters.booking_type) {
+      url.searchParams.set("booking_type", filters.booking_type);
+    }
+
+    if (filters.notified) {
+      url.searchParams.set("notified", filters.notified.toString());
+    }
 
     if (!!useMock) {
       const data = getAllBookingsMock();

@@ -58,12 +58,12 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <div className="w-full">
       {/* filters */}
       <div className="flex items-center justify-between py-4">
         <Input
-          placeholder="Filter arrival..."
-          value={(table.getColumn("arrival")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter bookings..."
+          value={(table.getColumn("")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table
               .getColumn("arrival")
@@ -129,7 +129,7 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      {/* paginatio  */}
+      {/* pagination  */}
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"

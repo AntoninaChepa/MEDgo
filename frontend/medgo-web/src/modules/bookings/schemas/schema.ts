@@ -1,10 +1,17 @@
 import { z } from "zod";
 
+export const bookingTypeSchema = z.union([
+  z.literal("scheduled"),
+  z.literal("urgent"),
+]);
+export type BookingType = z.infer<typeof bookingTypeSchema>;
+
 export const bookingSchema = z.object({
   booking_id: z.string(),
+  booking_type: bookingTypeSchema,
+  notified: z.boolean(),
   user: z.object({
-    first_name: z.string(),
-    last_name: z.string(),
+    name: z.string(),
     email: z.string().email(),
     phone: z.string(),
   }),

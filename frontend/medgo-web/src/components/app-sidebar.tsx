@@ -9,7 +9,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Ambulance, CalendarDays, SquareActivity } from "lucide-react";
+import { Ambulance, CalendarDays } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 import DatePicker from "@/components/ui/date-picker";
@@ -56,10 +56,11 @@ export function AppSidebar() {
               href="/"
               className="text-2xl font-bold flex flex-row justify-start items-center gap-1"
             >
-              <SquareActivity strokeWidth={2.25} className="text-[#137cf1]" />
+              {/* <SquareActivity strokeWidth={2.25} className="text-[#137cf1]" /> */}
               <span>
-                <span className="text-black">Med</span>
-                <span className="text-[#137cf1]">Go</span>
+                <span className="text-black">{"🚑 "}</span>
+                <span className="text-black">{"Med"}</span>
+                <span className="text-[#137cf1]">{"Go"}</span>
               </span>
             </Link>
           </SidebarGroupLabel>

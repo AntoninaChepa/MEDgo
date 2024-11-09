@@ -2,9 +2,10 @@
     "items": [
         {
             "booking_id": "1",
+            "booking_type": "scheduled",
+            "notified": true,
             "user": {
-                "first_name": "",
-                "last_name": "",
+                "name": "",
                 "email": "",
                 "phone": ""
             },
@@ -22,9 +23,10 @@
         },
         {
             "booking_id": "2",
+            "booking_type": "urgent",
+            "notified": false,
             "user": {
-                "first_name": "",
-                "last_name": "",
+                "name": "",
                 "email": "",
                 "phone": ""
             },
