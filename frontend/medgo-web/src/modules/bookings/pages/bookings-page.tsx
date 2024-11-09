@@ -6,8 +6,8 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Spacer } from "@/components/ui/spacer";
-import BookingsTable from "@/modules/bookings/pages/components/bookings-table/bookings-table-wrapper";
-import Layout from "@/modules/layout/layout";
+import BookingsTableWrapper from "@/modules/bookings/pages/components/bookings-table/bookings-table-wrapper";
+import Layout, { GlobalDateFilters } from "@/modules/layout/layout";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { AddNewBookingForm } from "./components/add-new-bookings/add-new-bookings-form";
@@ -17,11 +17,10 @@ import {
 } from "./components/delete-booking-confirmation-dialog/delete-booking-confirmation-dialog";
 
 const BookingsPage = () => {
-  // const [idToDelete, setIdToDelete] = useAtom(SelectedBookingIdToDelete);
+  const [dateFilters, setDateFilters] = useAtom(GlobalDateFilters);
   const [isModalOpen, setIsModalOpen] = useAtom(
     DeleteBookingConfirmationDialogOpen
   );
-
   const [addNewBookingOpen, setAddNewBookingOpen] = useState<boolean>(false);
 
   return (
@@ -46,9 +45,13 @@ const BookingsPage = () => {
 
         <Layout>
           <div className="max-w-6xl p-6 mx-auto">
-            <BookingsTable
+            <BookingsTableWrapper
               addNewBooking={() => {
                 setAddNewBookingOpen((prev) => !prev);
+              }}
+              filters={{
+                date_min: dateFilters.date_min ?? new Date().toISOString(),
+                date_max: dateFilters.date_max ?? new Date().toISOString(),
               }}
             />
           </div>

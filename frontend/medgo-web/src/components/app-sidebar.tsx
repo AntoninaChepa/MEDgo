@@ -13,6 +13,8 @@ import { Ambulance, CalendarDays, SquareActivity } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 import DatePicker from "@/components/ui/date-picker";
+import { GlobalDateFilters } from "@/modules/layout/layout";
+import { useAtom } from "jotai";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -42,6 +44,8 @@ export function AppSidebar() {
   const router = useRouter();
   const query = router.pathname;
 
+  const [dateFilters, setDateFilters] = useAtom(GlobalDateFilters);
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -63,7 +67,20 @@ export function AppSidebar() {
           {/* content */}
           <SidebarGroupContent>
             <div className="px-1 py-4">
-              <DatePicker />
+              <DatePicker
+                date={
+                  !!dateFilters.date_min
+                    ? new Date(dateFilters.date_min)
+                    : new Date()
+                }
+                setDate={(date: Date | null) => {
+                  setDateFilters((prev) => ({
+                    ...prev,
+                    date_min: date?.toISOString() ?? null,
+                    date_max: date?.toISOString() ?? null,
+                  }));
+                }}
+              />
             </div>
 
             {/* menu */}

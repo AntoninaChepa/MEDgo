@@ -2,10 +2,14 @@ import { useBookings } from "@/modules/bookings/hooks/queries/use-all-bookings";
 import { DataTable } from "./bookings-table";
 import { columns } from "./columns";
 
-export default function BookingsTableWrapper(props: {
+const BookingsTableWrapper = (props: {
   addNewBooking: () => void;
-}) {
-  const { data, isLoading, isError } = useBookings({ useMock: true });
+  filters: { date_min: string; date_max: string };
+}) => {
+  const { data, isLoading, isError } = useBookings({
+    useMock: true,
+    filters: props.filters,
+  });
 
   if (isLoading) return <div>loading data...</div>;
 
@@ -16,4 +20,6 @@ export default function BookingsTableWrapper(props: {
       <DataTable columns={columns} data={data.items} {...props} />
     </div>
   );
-}
+};
+
+export default BookingsTableWrapper;

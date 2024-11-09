@@ -8,10 +8,13 @@ import {
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
-import * as React from "react";
 
-export default function DatePicker() {
-  const [date, setDate] = React.useState<Date>();
+type DatePickerProps = {
+  date: Date | null;
+  setDate: (date: Date | null) => void;
+};
+export default function DatePicker(props: DatePickerProps) {
+  const { date, setDate } = props;
 
   return (
     <Popover>
@@ -30,8 +33,11 @@ export default function DatePicker() {
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
-          selected={date}
-          onSelect={setDate}
+          selected={date ?? new Date()}
+          onSelect={(date) => {
+            if (!date) setDate(null);
+            setDate(date ?? null);
+          }}
           initialFocus
         />
       </PopoverContent>

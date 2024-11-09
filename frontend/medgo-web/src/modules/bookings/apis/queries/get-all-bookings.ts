@@ -13,13 +13,21 @@ export async function getAllBookings({
   token,
   onUnauthorized,
   useMock,
+  filters,
 }: {
   token: string;
   onUnauthorized: () => void;
   useMock?: boolean;
+  filters: {
+    date_min: string;
+    date_max: string;
+  };
 }): Promise<BookingsOutput> {
   try {
     const url = new URL(endpoints.bookings.get_all);
+
+    url.searchParams.set("date_min", filters.date_min);
+    url.searchParams.set("date_max", filters.date_max);
 
     if (!!useMock) {
       const data = getAllBookingsMock();
