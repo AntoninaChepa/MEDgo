@@ -1,10 +1,7 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import Layout from "@/modules/layout/layout";
-import React from "react";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import RidesPage from "@/modules/rides/pages/rides";
 
-const RidesPage = () => {
-  return <Layout>hi there</Layout>;
+const Rides = () => {
+  return <RidesPage />;
 };
 
-export default RidesPage;
+export default Rides;

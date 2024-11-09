@@ -1,16 +1,7 @@
-import { DataTable } from "@/modules/layout/bookings/data-table";
-import Layout from "@/modules/layout/layout";
-import React from "react";
-import TablePage from "@/modules/layout/bookings/page";
+import BookingsPage from "@/modules/bookings/pages/bookings-page";
 
-const BookingsPage = () => {
-  return (
-    <Layout>
-      <div className="max-w-6xl mx-auto">
-        <TablePage />
-      </div>
-    </Layout>
-  );
+const Bookings = () => {
+  return <BookingsPage />;
 };
 
-export default BookingsPage;
+export default Bookings;

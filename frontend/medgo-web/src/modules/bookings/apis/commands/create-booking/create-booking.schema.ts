@@ -12,8 +12,8 @@ export const createBookingCommandInputSchema = z.object({
     city: z.string(),
     street: z.string(),
   }),
-  city: z.string(),
   arrival: z.object({
+    city: z.string(),
     street: z.string(),
   }),
   arrival_time: z.string(),

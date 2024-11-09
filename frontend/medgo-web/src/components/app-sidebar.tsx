@@ -20,7 +20,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-import DatePicker from "@/modules/layout/datePicker";
+import DatePicker from "@/components/ui/date-picker";
 import Link from "next/link";
 import { useRouter } from "next/router";
 

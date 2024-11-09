@@ -3,6 +3,14 @@
 import * as React from "react";
 
 import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
@@ -13,22 +21,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,7 +34,10 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+  addNewBooking,
+}: DataTableProps<TData, TValue> & {
+  addNewBooking: () => void;
+}) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -64,6 +59,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
+      {/* filters */}
       <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Filter arrival..."
@@ -76,22 +72,12 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
 
-        <Sheet>
-          <Button asChild>
-            <SheetTrigger className="flex gap-2">
-              <PlusCircle /> New Booking
-            </SheetTrigger>
-          </Button>
-          <SheetContent>
-            <SheetHeader>
-              <SheetTitle>Create a new booking</SheetTitle>
-              <SheetDescription>
-                Make sure to specify locations, time and seat type
-              </SheetDescription>
-            </SheetHeader>
-          </SheetContent>
-        </Sheet>
+        <Button onClick={addNewBooking}>
+          <PlusCircle /> New Booking
+        </Button>
       </div>
+
+      {/* table */}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -142,6 +128,8 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+
+      {/* paginatio  */}
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"

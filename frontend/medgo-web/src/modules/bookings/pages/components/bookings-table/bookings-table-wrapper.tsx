@@ -1,10 +1,10 @@
-import { Booking } from "@/modules/bookings/schemas/schema";
-import { DataTable } from "./data-table";
-import { columns } from "./columns";
 import { useBookings } from "@/modules/bookings/hooks/queries/use-all-bookings";
+import { DataTable } from "./bookings-table";
+import { columns } from "./columns";
 
-export default function TablePage() {
-  // const data = await getData();
+export default function BookingsTableWrapper(props: {
+  addNewBooking: () => void;
+}) {
   const { data, isLoading, isError } = useBookings({ useMock: true });
 
   if (isLoading) return <div>loading...</div>;
@@ -13,7 +13,7 @@ export default function TablePage() {
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data.items} />
+      <DataTable columns={columns} data={data.items} {...props} />
     </div>
   );
 }

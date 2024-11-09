@@ -1,11 +1,5 @@
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import Homepage from "@/modules/homepage/pages/homepage";
 
 export default function Home() {
-  return (
-    <div className={`${inter.className}`}>
-      <div>MEDgo</div>
-    </div>
-  );
+  return <Homepage />;
 }
