@@ -11,7 +11,7 @@ export const endpoints = {
   },
   rides: {
     get_all: `${API_URL}/rides/get-all`,
-    get_by_id: `${API_URL}/rides/get-by-id`,
+    get_details: `${API_URL}/rides/get-details`,
   },
   auth: {
     sign_in: `${API_URL}/auth/sign-in`,
