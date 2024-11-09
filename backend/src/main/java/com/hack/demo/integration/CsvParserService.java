@@ -61,7 +61,6 @@ public class CsvParserService {
 
         return vehicleStatsList;
     }
-
     public void loadTransportData() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         Transport transport = new Transport();  // Reuse a single Transport object
