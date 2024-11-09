@@ -1,5 +1,13 @@
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import {
+  Calendar,
+  CalendarDays,
+  Car,
+  Home,
+  Inbox,
+  Search,
+  Settings,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -18,20 +26,20 @@ import { useRouter } from "next/router";
 
 // Menu items.
 const items = [
-  {
-    title: "Home",
-    url: "/",
-    icon: Home,
-  },
+  // {
+  //   title: "Home",
+  //   url: "/",
+  //   icon: Home,
+  // },
   {
     title: "Bookings",
     url: "/dashboard/bookings",
-    icon: Home,
+    icon: CalendarDays,
   },
   {
     title: "Rides",
     url: "/dashboard/rides",
-    icon: Home,
+    icon: Car,
   },
   // {
   //   title: "Inbox",
@@ -55,9 +63,7 @@ const items = [
   // },
 ];
 
-
 export function AppSidebar() {
-
   const router = useRouter();
   const query = router.pathname;
   console.log(query);
@@ -66,16 +72,27 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>MEDgo</SidebarGroupLabel>
+          <SidebarGroupLabel>
+            <Link href="/" className="text-lg font-extrabold text-black">
+              MEDgo
+            </Link>
+          </SidebarGroupLabel>
           <SidebarGroupContent>
-            <div className="mt-1 mb-2">
+            <div className="mt-1 mb-2 px-2">
               <DatePicker></DatePicker>
             </div>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link href={item.url} className={query.endsWith(item.title.toLowerCase()) ? "underline" : ''}>
+                    <Link
+                      href={item.url}
+                      className={
+                        query.endsWith(item.title.toLowerCase())
+                          ? "underline"
+                          : ""
+                      }
+                    >
                       <item.icon />
                       <span>{item.title}</span>
                     </Link>

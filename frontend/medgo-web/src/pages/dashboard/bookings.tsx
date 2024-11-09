@@ -6,7 +6,9 @@ import TablePage from "@/modules/layout/bookings/page";
 const BookingsPage = () => {
   return (
     <Layout>
-      <TablePage></TablePage>
+      <div className="max-w-6xl mx-auto">
+        <TablePage />
+      </div>
     </Layout>
   );
 };

@@ -22,6 +22,9 @@ export const columns: ColumnDef<Booking>[] = [
   {
     accessorKey: "arrival",
     header: "Arrival",
+    cell: ({ row }) => {
+      return `${row.original.arrival.city}, ${row.original.arrival.street}`;
+    },
   },
   {
     accessorKey: "arrival_time",
@@ -40,6 +43,9 @@ export const columns: ColumnDef<Booking>[] = [
   {
     accessorKey: "departure",
     header: "Departure",
+    cell: ({ row }) => {
+      return `${row.original.departure.city}, ${row.original.departure.street}`;
+    },
   },
   {
     accessorKey: "pickup_time",
@@ -72,6 +78,9 @@ export const columns: ColumnDef<Booking>[] = [
   {
     accessorKey: "user",
     header: "User",
+    cell: ({ row }) => {
+      return `${row.original.user.first_name} ${row.original.user.last_name}`;
+    },
   },
   {
     id: "actions",

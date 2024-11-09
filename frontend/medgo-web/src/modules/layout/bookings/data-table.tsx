@@ -4,13 +4,23 @@ import * as React from "react";
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   SortingState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import {
   Table,
   TableBody,
@@ -21,6 +31,8 @@ import {
 } from "@/components/ui/table";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { PlusCircle } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -32,6 +44,9 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
   const table = useReactTable({
     data,
     columns,
@@ -39,13 +54,44 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      columnFilters,
     },
   });
 
   return (
     <div>
+      <div className="flex items-center justify-between py-4">
+        <Input
+          placeholder="Filter arrival..."
+          value={(table.getColumn("arrival")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table
+              .getColumn("arrival")
+              ?.setFilterValue(event.target.value.trim())
+          }
+          className="max-w-sm"
+        />
+
+        <Sheet>
+          <Button asChild>
+            <SheetTrigger className="flex gap-2">
+              <PlusCircle /> New Booking
+            </SheetTrigger>
+          </Button>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Create a new booking</SheetTitle>
+              <SheetDescription>
+                Make sure to specify locations, time and seat type
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
