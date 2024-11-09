@@ -1,4 +1,4 @@
-import { env } from "@/lib/env.mjs";
+import { env } from "./env.mjs";
 
 const API_URL = env.NEXT_PUBLIC_BACKEND_API_URL ?? "";
 

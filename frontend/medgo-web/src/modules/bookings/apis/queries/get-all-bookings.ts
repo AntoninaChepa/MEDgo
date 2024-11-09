@@ -19,14 +19,10 @@ export async function getAllBookings({
   useMock?: boolean;
 }): Promise<BookingsOutput> {
   try {
-    console.log("# getAllBookings", { key: process.env.BACKEND_API_URL });
     const url = new URL(endpoints.bookings.get_all);
-    console.log("# URL ", { url });
 
     if (!!useMock) {
       const data = getAllBookingsMock();
-      console.log("#", { data });
-
       return BookingsOutputSchema.parse(data);
     }
 

@@ -5,8 +5,6 @@ import { queryKeys } from "./query-keys";
 export function useBookings(props: { useMock?: boolean } | undefined) {
   const useMock = props?.useMock ?? false;
 
-  console.log("#", { useMock });
-
   return useQuery({
     queryFn: () =>
       getAllBookings({
