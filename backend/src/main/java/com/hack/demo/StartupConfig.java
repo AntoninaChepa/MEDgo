@@ -33,7 +33,7 @@ public class StartupConfig {
             vehicleStatsDao.batchInsertVehicleStats(csvParserService.loadVehicleStatsFromCsv());
 
             transportDao.deleteAll();
-            transportDao.batchInsert(csvParserService.loadTransportData());
+            transportDao.batchInsert(csvParserService.loadTransportData(),300);
         };
     }
 }
