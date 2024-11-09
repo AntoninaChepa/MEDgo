@@ -1,6 +1,6 @@
 package com.hack.demo.domain;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
 public class VehicleStats {

@@ -3,8 +3,6 @@ package com.hack.demo.route;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hack.demo.data.SingleRoute;
-import com.hack.demo.route.GeocodingResponse;
-import com.hack.demo.route.GeomappingGoogleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +23,6 @@ public class SimpleRouteCalculatorService {
     GeomappingGoogleService geomappingGoogleService;
     public Optional<SingleRoute> calculate(String startAddress, String endAddress) {
         try {
-
-
             // 1. Geocoding dell'indirizzo di partenza
             Optional<GeocodingResponse> startLocation = geomappingGoogleService.calcola(startAddress);
             double startLat = startLocation.get().getResults().get(0).getGeometry().getLocation().getLat();
@@ -52,7 +48,10 @@ public class SimpleRouteCalculatorService {
 
 
             return Optional.of(new SingleRoute(valueOf(distance).divide(valueOf(1000), HALF_UP),
-                    valueOf(duration).divide(valueOf(60), HALF_UP)));
+                    valueOf(duration).divide(valueOf(60), HALF_UP),
+                    startLon, startLon,
+                    endLat, endLon
+                    ));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,6 +78,8 @@ public class SimpleRouteCalculatorService {
         return jsonResponse;
     }
 
+
+    //NOMINATIM è impreciso, ora usiamo google, in futuro DB si spera
     public static JsonNode geocode(String address) throws Exception {
         String url = "https://nominatim.openstreetmap.org/search?q=" + address.replace(" ", "+") + "&format=json";
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
@@ -95,6 +96,6 @@ public class SimpleRouteCalculatorService {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonResponse = mapper.readTree(response.toString());
 
-        return jsonResponse.get(0);  // Prendi il primo risultato
+        return jsonResponse.get(0);
     }
 }
