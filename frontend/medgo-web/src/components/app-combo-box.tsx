@@ -2,7 +2,6 @@
 
 import * as React from "react";
 
-import { Check, ChevronsUpDown } from "lucide-react";
 import {
   Command,
   CommandEmpty,
@@ -16,6 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Check, ChevronsUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -37,14 +37,14 @@ export default function AppComboBox({
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
-  return (
+  return ( 
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild className="w-full">
         <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between"
+          className="w-full"
         >
           {value
             ? dataArr.find((item) => item.value === value)?.label

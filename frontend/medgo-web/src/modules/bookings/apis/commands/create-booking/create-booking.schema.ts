@@ -1,8 +1,14 @@
+import {
+  bookingSeatTypeSchema,
+  bookingTypeSchema,
+} from "@/modules/bookings/schemas/schema";
 import { z } from "zod";
 import { bookingsCommandsListSchema } from "../commands.names";
 
 export const createBookingCommandInputSchema = z.object({
-  booking_type: z.union([z.literal("scheduled"), z.literal("urgent")]),
+  booking_type: bookingTypeSchema,
+  seat_type: bookingSeatTypeSchema,
+  arrival_time: z.string(),
   user: z.object({
     first_name: z.string(),
     last_name: z.string(),
@@ -17,8 +23,6 @@ export const createBookingCommandInputSchema = z.object({
     city: z.string(),
     street: z.string(),
   }),
-  arrival_time: z.string(),
-  seat_type: z.string(),
 });
 export type CreateBookingCommandInput = z.infer<
   typeof createBookingCommandInputSchema

@@ -42,7 +42,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/modules/bookings/pages/components/add-new-bookings/index.js"  ],
   "exclude": [
     "node_modules"
   ]
