@@ -1,8 +1,10 @@
-const API_URL = process.env.BACKEND_API_URL ?? "";
+import { env } from "@/lib/env.mjs";
+
+const API_URL = env.NEXT_PUBLIC_BACKEND_API_URL ?? "";
 
 export const endpoints = {
   bookings: {
-    get_all: `${API_URL}/bookings/get-all`,
+    get_all: `${API_URL}/bookings/get-all `,
     create: `${API_URL}/bookings/create`,
     delete: `${API_URL}/bookings/delete`,
     edit: `${API_URL}/bookings/edit`,
