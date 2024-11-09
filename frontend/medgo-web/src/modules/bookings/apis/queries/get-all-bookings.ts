@@ -2,7 +2,8 @@ import { endpoints } from "@/lib/endpoints";
 import { fetcher } from "@/lib/fetcher";
 import { z } from "zod";
 import { bookingSchema, BookingType } from "../../schemas/schema";
-import { getAllBookingsMock } from "./mocks/get-all-bookings.mock";
+import { getScheduledBookingsMock } from "./mocks/get-scheduled-bookings.mock";
+import { getUrgentBookingsMock } from "./mocks/get-urgent-bookings.mock";
 
 export const BookingsOutputSchema = z.object({
   items: z.array(bookingSchema),
@@ -39,13 +40,23 @@ export async function getAllBookings({
       url.searchParams.set("notified", filters.notified.toString());
     }
 
-    if (!!useMock) {
-      const data = getAllBookingsMock();
-      return BookingsOutputSchema.parse(data);
-    }
-
-    // const { data } = await supabaseClient.from("bookings").select();
+    // const { data: sup } = await supabaseClient.from("booking").select("*");
+    // console.log("#sup: ", { sup: "supabaseClient" });
+    // console.log("#sup: ", { sup });
     // const { data } = await supabaseClient.from("bookings").insert([]);
+
+    if (!!useMock) {
+      if (filters.booking_type === "urgent") {
+        const data = getUrgentBookingsMock();
+        return BookingsOutputSchema.parse(data);
+      }
+
+      if (filters.booking_type === "scheduled") {
+        const isToNotify = filters.notified;
+        const data = getScheduledBookingsMock(isToNotify);
+        return BookingsOutputSchema.parse(data);
+      }
+    }
 
     const data = await fetcher(url.href, {
       method: "GET",
