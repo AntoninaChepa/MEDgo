@@ -1,0 +1,6 @@
+{
+    "command": "delete-booking",
+    "payload": {
+        "booking_id": ""
+    }
+}
