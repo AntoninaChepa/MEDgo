@@ -10,6 +10,41 @@ public class Veicolo {
     private int staff;
     private String tipoVeicolo;
 
+    boolean hasCapacity(String seatType, int count) {
+        switch (seatType) {
+            case "brande":
+                return brande >= count;
+            case "postiReclinabili":
+                return postiReclinabili >= count;
+            case "postiNonReclinabili":
+                return postiNonReclinabili >= count;
+            case "staff":
+                return staff >= count;
+            default:
+                return false;
+        }
+    }
+
+
+
+// Aggiungi passeggeri a un veicolo
+void addPassengers(String seatType, int count) {
+    switch (seatType) {
+        case "brande":
+            brande -= count;
+            break;
+        case "postiReclinabili":
+            postiReclinabili -= count;
+            break;
+        case "postiNonReclinabili":
+            postiNonReclinabili -= count;
+            break;
+        case "staff":
+            staff -= count;
+            break;
+    }
+}
+
 
     public Veicolo() {
     }
