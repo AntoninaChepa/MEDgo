@@ -1,11 +1,7 @@
 import { Booking } from "@/modules/bookings/schemas/schema";
 import { BookingsOutput } from "../get-all-bookings";
 
-const mockedBookingsScheduled = [];
-const mockedBookingsUrgent = [];
-// const mockedBookingsScheduled = [];
-
-const mockedBookings = [
+const mockedBookingsScheduled = [
   {
     booking_id: "1",
     booking_type: "scheduled",
@@ -50,7 +46,7 @@ const mockedBookings = [
   },
   {
     booking_id: "3",
-    booking_type: "urgent",
+    booking_type: "scheduled",
     notified: false,
     user: {
       name: "John Doe",
@@ -70,9 +66,15 @@ const mockedBookings = [
     pickup_time: "2024-11-09T00:23:23.901Z",
   },
 ] satisfies Booking[];
+// const mockedBookingsUrgent = [];
 
-export const getAllBookingsMock = () => {
+export const getScheduledBookingsMock = (isToNotify = false) => {
+  if (isToNotify)
+    return {
+      items: mockedBookingsScheduled.filter((a) => a.notified === false),
+    } satisfies BookingsOutput;
+
   return {
-    items: mockedBookings,
+    items: mockedBookingsScheduled,
   } satisfies BookingsOutput;
 };
