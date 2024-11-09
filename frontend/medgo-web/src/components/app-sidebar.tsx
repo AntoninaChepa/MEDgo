@@ -1,13 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import {
-  Calendar,
-  CalendarDays,
-  Car,
-  Home,
-  Inbox,
-  Search,
-  Settings,
-} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -19,6 +9,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Ambulance, CalendarDays, SquareActivity } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 import DatePicker from "@/components/ui/date-picker";
 import Link from "next/link";
@@ -26,11 +18,6 @@ import { useRouter } from "next/router";
 
 // Menu items.
 const items = [
-  // {
-  //   title: "Home",
-  //   url: "/",
-  //   icon: Home,
-  // },
   {
     title: "Bookings",
     url: "/dashboard/bookings",
@@ -39,79 +26,86 @@ const items = [
   {
     title: "Rides",
     url: "/dashboard/rides",
-    icon: Car,
+    icon: Ambulance,
   },
-  // {
-  //   title: "Inbox",
-  //   url: "#",
-  //   icon: Inbox,
-  // },
-  // {
-  //   title: "Calendar",
-  //   url: "#",
-  //   icon: Calendar,
-  // },
-  // {
-  //   title: "Search",
-  //   url: "#",
-  //   icon: Search,
-  // },
-  // {
-  //   title: "Settings",
-  //   url: "#",
-  //   icon: Settings,
-  // },
 ];
+
+const userDetails = {
+  name: "Jenny Kurtz",
+  email: "jennyktz@gmail.com",
+  // avatar_url: "https://github.com/shadcn.png",
+  avatar_url:
+    "https://cdn.prod.website-files.com/636496d3f0ebfdaba9784655/65b1fa51a745f5bfcb5a9d7b_jenny-chu.webp",
+};
 
 export function AppSidebar() {
   const router = useRouter();
   const query = router.pathname;
-  console.log(query);
 
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
+          {/* logo */}
           <SidebarGroupLabel>
-            <Link href="/" className="text-lg font-extrabold text-black">
-              MEDgo
+            <Link
+              href="/"
+              className="text-2xl font-bold flex flex-row justify-start items-center gap-1"
+            >
+              <SquareActivity strokeWidth={2.25} className="text-[#137cf1]" />
+              <span>
+                <span className="text-black">Med</span>
+                <span className="text-[#137cf1]">Go</span>
+              </span>
             </Link>
           </SidebarGroupLabel>
+
+          {/* content */}
           <SidebarGroupContent>
-            <div className="mt-1 mb-2 px-2">
-              <DatePicker></DatePicker>
+            <div className="px-1 py-4">
+              <DatePicker />
             </div>
+
+            {/* menu */}
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link
-                      href={item.url}
-                      className={
-                        query.endsWith(item.title.toLowerCase())
-                          ? "underline"
-                          : ""
-                      }
-                    >
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {items.map((item) => {
+                const isCurrentItemActive = query.endsWith(
+                  item.title.toLowerCase()
+                );
+
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild isActive={isCurrentItemActive}>
+                      <Link
+                        href={item.url}
+                        className={
+                          isCurrentItemActive
+                            ? "underline underline-offset-2"
+                            : ""
+                        }
+                      >
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      {/* footer */}
       <SidebarFooter>
         <div className="flex items-center space-x-4 p-2">
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarImage src={userDetails.avatar_url} alt={userDetails.name} />
             <AvatarFallback>.</AvatarFallback>
           </Avatar>
           <div className="space-y-1">
-            <p className="text-sm font-bold leading-none">Shadcn</p>
-            <p className="text-sm text-muted-foreground">m@example.com</p>
+            <p className="text-sm font-bold leading-none">{userDetails.name}</p>
+            <p className="text-sm text-muted-foreground">{userDetails.email}</p>
           </div>
         </div>
       </SidebarFooter>
